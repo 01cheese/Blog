@@ -1,1 +1,0 @@
-This is a sample blog post content loaded from a text file.
