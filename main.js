@@ -1,5 +1,5 @@
 // Сначала загружаем файл data.txt
-fetch('data.txt')
+fetch('main.txt')
     .then(response => response.text()) // Преобразуем ответ в текст
     .then(data => {
         // Находим элемент, куда будем вставлять текст
