@@ -1,69 +1,202 @@
+/* Отступ для основного содержимого */
 body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-        }
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 100px; /* Это значение должно совпадать с высотой хедера */
+}
 
-        /* Верхнее меню */
-        .header {
-            background-color: #000;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+nav {
+    margin-left: 40px;
+}
+/* Ограничим высоту хедера */
+.header {
+    background-color: rgba(34, 34, 34, 0.98);
+    color: white;
+    padding: 10px 30px; /* Уменьшили padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Уменьшили высоту хедера */
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-        .header a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-        }
+/* Настроим контейнер переключателя тем */
+#theme-switcher {
+    padding: 40px;
+    display: flex;
+    gap: 5px; /* Уменьшили расстояние между кнопками */
+    justify-content: flex-end; /* Выравнивание кнопок по правому краю */
+    max-width: 200px; /* Ограничим максимальную ширину контейнера */
+}
 
-        /* Основная часть блога */
-        .container {
-            width: 60%;
-            margin: 20px auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+.theme-option {
+    background-color: #555;
+    border-radius: 50%;
+    width: 20px; /* Уменьшили размер кнопок */
+    height: 20px; /* Уменьшили высоту кнопок */
+    cursor: pointer;
+    position: relative;
+    border: 2px solid #222;
+    transition: border-color 0.3s ease;
+}
 
-        .post {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 20px;
-        }
 
-        .post-title {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
-        }
+.theme-option.active {
+    border-color: #fff;
+}
 
-        .post-meta {
-            color: #999;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
 
-        .post-content {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #444;
-        }
+.header a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
 
-        .post img {
-            max-width: 100%;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+}
 
-        /* Сайдбар скрыт */
-        .sidebar {
-            display: none;
-        }
+.header a:hover {
+    color: #aaa;
+}
+
+/* Контейнер для постов */
+.container {
+    width: 75%;
+    margin: 30px auto;
+    background-color: #333;
+    color: #f5f5f5;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Публикации */
+.post {
+    margin-bottom: 50px;
+    border-bottom: 2px solid #555;
+    padding-bottom: 25px;
+}
+
+.post-title {
+    font-size: 28px;
+    color: #eee;
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+}
+
+.post-meta {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.post-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #ddd;
+}
+
+.post img {
+    max-width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+
+
+/* Темы */
+body.grey-theme {
+    background-color: #2e2e2e;
+    color: #d4d4d4;
+}
+
+body.grey-theme .container {
+    background-color: #444;
+}
+
+body.dark-green-theme {
+    background-color: #0d4029;
+    color: #d0e7dc;
+}
+
+body.dark-green-theme .container {
+    background-color: #195d47;
+}
+
+body.dark-blue-theme {
+    background-color: #162d4e;
+    color: #c9d8e9;
+}
+
+body.dark-blue-theme .container {
+    background-color: #1d4b6b;
+}
+
+body.dark-purple-theme {
+    background-color: #301934;
+    color: #e8d1f3;
+}
+
+body.dark-purple-theme .container {
+    background-color: #4a2b5d;
+}
+
+body.cream-theme {
+    background-color: #2d2d2d;
+    color: #fdf2e9;
+}
+
+body.cream-theme .container {
+    background-color: #433f39;
+}
+
+/* Пагинация */
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    gap: 15px;
+}
+
+.page-link {
+    background-color: #555;
+    color: #ddd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.page-link:hover {
+    background-color: #777;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.page-link.active {
+    background-color: #fff;
+    color: #333;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+
+
+
+
 code {
             background-color: #f4f4f4;
             padding: 5px;
@@ -131,21 +264,4 @@ iframe {
     display: block;
     margin: 20px auto;
     max-width: 100%;
-}
-.page-link {
-    margin: 0 5px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.page-link:hover {
-    background-color: #0056b3;
-}
-
-.page-link.active {
-    background-color: #0056b3;
-    font-weight: bold;
 }

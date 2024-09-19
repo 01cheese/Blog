@@ -1,5 +1,27 @@
 let currentPage = 1;
-const postsPerPage = 10;
+const postsPerPage = 5;
+
+// Инициализация темы при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+    loadPosts(currentPage);
+    initThemeSwitcher();
+});
+
+// Логика переключения тем
+function initThemeSwitcher() {
+    const themeSwitcher = document.getElementById('theme-switcher');
+    const themeOptions = document.querySelectorAll('.theme-option');
+
+    themeOptions.forEach(option => {
+        option.addEventListener('click', function () {
+            const selectedTheme = this.getAttribute('data-theme');
+            document.body.className = `${selectedTheme}-theme`;
+
+            themeOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
 
 function renderPagination(totalPages) {
     const paginationContainer = document.getElementById('pagination');
@@ -9,6 +31,9 @@ function renderPagination(totalPages) {
         const pageLink = document.createElement('button');
         pageLink.textContent = i;
         pageLink.classList.add('page-link');
+        if (i === currentPage) {
+            pageLink.classList.add('active');
+        }
         pageLink.onclick = function () {
             loadPosts(i);
         };
@@ -31,21 +56,20 @@ function loadPosts(page) {
                 const post = document.createElement('div');
                 post.classList.add('post');
                 post.innerHTML = `
-                        <div class="container">
-                            <div class="post-content">${posts[i].content}</div>
-                        </div>
+                    <div class="container">
+                        <div class="post-content">${posts[i].content}</div>
+                    </div>
                 `;
                 postContainer.appendChild(post);
             }
 
-            // Пересчёт пагинации на случай изменения количества постов
+            // Пересчёт пагинации и активной страницы
+            currentPage = page;
             const totalPages = Math.ceil(posts.length / postsPerPage);
             renderPagination(totalPages);
+
+            // Прокрутка наверх после загрузки постов
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(error => console.error('Ошибка при загрузке постов:', error));
 }
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    loadPosts(currentPage);
-});

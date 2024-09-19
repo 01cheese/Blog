@@ -7,18 +7,29 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="main.css">
 </head>
-<body>
+<body class="grey-theme"> <!-- Default to grey theme -->
 
     <div class="header">
-        <h1>My Blog</h1>
-        <nav>
-            <a href="#">Главная</a>
-            <a href="#">О блоге</a>
-            <a href="#">Контакты</a>
-        </nav>
+    <h1>My Blog</h1>
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#">О блоге</a>
+        <a href="#">Контакты</a>
+    </nav>
+
+    <!-- Theme switcher -->
+    <div id="theme-switcher">
+        <div class="theme-option" data-theme="grey"></div>
+        <div class="theme-option" data-theme="dark-green"></div>
+        <div class="theme-option" data-theme="dark-blue"></div>
+        <div class="theme-option" data-theme="dark-purple"></div>
+        <div class="theme-option" data-theme="cream"></div>
     </div>
-<div id="post-content">Loading...</div>
-<div id="pagination"></div>
+</div>
+
+
+    <div id="post-content">Loading...</div>
+    <div id="pagination"></div>
 
 </body>
 </html>
