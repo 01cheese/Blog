@@ -76,6 +76,10 @@ function renderPagination(totalPages) {
     }
 }
 
+// Функция для инициализации кнопок "Поделиться"
+
+
+
 // Загрузка постов
 function loadPosts(page) {
     fetch('posts.json')
@@ -99,6 +103,7 @@ function loadPosts(page) {
                 post.innerHTML = `
                     <div class="container">
                         <div class="post-content">${posts[i].content}</div>
+                        <button class="share-btn" data-id="${posts[i].id}">Поделиться</button>
                     </div>
                 `;
                 postContainer.appendChild(post);
@@ -109,8 +114,31 @@ function loadPosts(page) {
             const totalPages = Math.ceil(posts.length / postsPerPage);
             renderPagination(totalPages);
 
+            // Инициализируем кнопки "Поделиться"
+            initShareButtons();
+
             // Прокрутка наверх после загрузки постов
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(error => console.error('Ошибка при загрузке постов:', error));
 }
+
+
+function initShareButtons() {
+    const shareButtons = document.querySelectorAll('.share-btn');
+
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const postId = this.getAttribute('data-id');
+            const shareUrl = `http://localhost:63342/easyBlog/share.html?id=${postId}`;
+
+            // Копируем ссылку в буфер обмена
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert('Ссылка скопирована: ' + shareUrl);
+            }).catch(err => {
+                console.error('Ошибка копирования ссылки:', err);
+            });
+        });
+    });
+}
+
