@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.elements {
+    margin-bottom: 20px;
+}
+
+.draggable {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    cursor: move;
+}
+
+.dropzone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    min-height: 200px;
+    background-color: #fafafa;
+}
+
+.dropzone .draggable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button.delete {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button.delete:hover {
+    background-color: darkred;
+}

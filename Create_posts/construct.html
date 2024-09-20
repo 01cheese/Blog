@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Constructor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto my-10">
+        <div class="flex">
+            <!-- Sidebar для перетаскиваемых элементов -->
+            <div class="w-1/4 p-4 bg-white shadow-lg">
+                <h2 class="text-lg font-bold mb-4">Элементы</h2>
+                <div id="draggable-elements">
+                    <div class="draggable bg-blue-200 p-2 mb-4" draggable="true" data-type="p">Абзац</div>
+                    <div class="draggable bg-green-200 p-2 mb-4" draggable="true" data-type="h1">Заголовок 1</div>
+                    <div class="draggable bg-green-300 p-2 mb-4" draggable="true" data-type="h2">Заголовок 2</div>
+                    <div class="draggable bg-green-400 p-2 mb-4" draggable="true" data-type="h3">Заголовок 3</div>
+                    <div class="draggable bg-green-500 p-2 mb-4" draggable="true" data-type="h4">Заголовок 4</div>
+                    <div class="draggable bg-green-600 p-2 mb-4" draggable="true" data-type="h5">Заголовок 5</div>
+                    <div class="draggable bg-green-700 p-2 mb-4" draggable="true" data-type="h6">Заголовок 6</div>
+                    <div class="draggable bg-yellow-200 p-2 mb-4" draggable="true" data-type="img">Изображение</div>
+                    <div class="draggable bg-purple-200 p-2 mb-4" draggable="true" data-type="ul">Неупорядоченный список</div>
+                    <div class="draggable bg-purple-300 p-2 mb-4" draggable="true" data-type="ol">Упорядоченный список</div>
+                    <div class="draggable bg-red-200 p-2 mb-4" draggable="true" data-type="blockquote">Цитата</div>
+                    <div class="draggable bg-gray-200 p-2 mb-4" draggable="true" data-type="pre">Код</div>
+                    <div class="draggable bg-teal-200 p-2 mb-4" draggable="true" data-type="table">Таблица</div>
+                </div>
+            </div>
+
+            <!-- Dropzone для добавления элементов -->
+            <div class="w-3/4 p-4 bg-white shadow-lg">
+                <h2 class="text-lg font-bold mb-4">Ваш пост</h2>
+                <div id="post-content" class="dropzone"></div>
+            </div>
+        </div>
+
+        <!-- Кнопка для сохранения -->
+        <div class="mt-4">
+            <button id="savePost" class="bg-blue-500 text-white px-4 py-2 rounded">Сохранить пост</button>
+        </div>
+    </div>
+
+    <!-- Подключение Sortable.js -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+</body>
+</html>
