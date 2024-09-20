@@ -1,15 +1,17 @@
 let currentPage = 1;
 const postsPerPage = 5;
 
-// Инициализация темы при загрузке
+
 document.addEventListener('DOMContentLoaded', () => {
-    loadPosts(currentPage);
+    const savedTheme = localStorage.getItem('selectedTheme');
+    if (savedTheme) {
+        document.body.className = `${savedTheme}-theme`;
+    }
+
     initThemeSwitcher();
 });
 
-// Логика переключения тем
 function initThemeSwitcher() {
-    const themeSwitcher = document.getElementById('theme-switcher');
     const themeOptions = document.querySelectorAll('.theme-option');
 
     themeOptions.forEach(option => {
@@ -17,11 +19,16 @@ function initThemeSwitcher() {
             const selectedTheme = this.getAttribute('data-theme');
             document.body.className = `${selectedTheme}-theme`;
 
+            // Сохранение выбранной темы в localStorage
+            localStorage.setItem('selectedTheme', selectedTheme);
+
+            // Обновление активной темы
             themeOptions.forEach(opt => opt.classList.remove('active'));
             this.classList.add('active');
         });
     });
 }
+
 
 function renderPagination(totalPages) {
     const paginationContainer = document.getElementById('pagination');
