@@ -1,11 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap");
 /* Отступ для основного содержимого */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: #d4d4d4;
     padding: 0;
     margin: 0;
+    line-height: 1.8;
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-top: 100px; /* Это значение должно совпадать с высотой хедера */
 }
+
+/* Шрифт для заголовков */
+h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+}
+
+h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+}
+
+h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Заголовки h4, h5, h6 */
+h4 {
+    font-family: 'Merriweather', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #f0f0f0;
+    margin-bottom: 15px;
+}
+
+h5 {
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #e4e4e4;
+    margin-bottom: 12px;
+}
+
+h6 {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+/* Стили для inline элементов */
+
+/* Выделенный текст (strong) */
+strong {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #f5f5f5;
+}
+
+/* Курсивный текст (em) */
+em {
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    color: #d4d4d4;
+}
+
+/* Ссылки (a) */
+a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #1e90ff; /* Deep blue color for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #87cefa; /* Lighter blue on hover */
+    text-decoration: underline;
+}
+
+/* Подчеркнутый текст (u) */
+u {
+    text-decoration: underline;
+    color: inherit; /* Keep the text color */
+}
+
+/* Цитаты внутри строки (q) */
+q {
+    font-style: italic;
+    quotes: "«" "»"; /* Для русского языка используем кавычки-елочки */
+}
+
+/* Стили для аббревиатур */
+abbr {
+    border-bottom: 1px dotted;
+    cursor: help;
+    text-decoration: none;
+}
+
+/* Стили для небольшого текста (small) */
+small {
+    font-size: 80%;
+    color: #b0b0b0;
+}
+
+/* Стили для зачеркнутого текста (s, del) */
+s, del {
+    text-decoration: line-through;
+    color: #ff6961; /* Красный для зачеркнутого текста */
+}
+
+
+
+
+
+
+
+/* Для параграфов */
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #d4d4d4;
+}
+
+/* Для блоков кода */
+code, pre {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    background-color: #2c2c2c;
+    padding: 5px;
+    border-left: 4px solid #2c6e49;
+    color: #f4f4f4;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Для таблиц */
+table {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    color: #d4d4d4;
+}
+
+th, td {
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+    background-color: #2c2c2c;
+    color: #f4f4f4;
+}
+
+/* Для цитат */
+blockquote {
+    font-family: 'Merriweather', serif;
+    font-style: italic;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-left: 5px solid #2c6e49;
+    margin: 20px 0;
+    color: #e4e4e4;
+}
+
+/* Для нумерованных и маркированных списков */
+ol, ul {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin: 10px 0 10px 20px;
+    color: #d4d4d4;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Шрифт для заголовков таблиц */
+tr {
+    border-bottom: 1px solid #555;
+}
+
+
+
+
 
 nav {
     margin-left: 40px;
@@ -26,6 +220,27 @@ nav {
     z-index: 1000;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+
+.share-button {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Компактные отступы */
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px; /* Уменьшенный шрифт */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Чтобы кнопка занимала ровно столько места, сколько нужно */
+}
+
+.share-button:hover {
+    background-color: #4682b4;
+}
+
+
+
 
 /* Настроим контейнер переключателя тем */
 #theme-switcher {
@@ -142,6 +357,7 @@ nav {
 }
 
 .post-content {
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
     line-height: 1.8;
     color: #ddd;
@@ -232,77 +448,4 @@ body.cream-theme .container {
     color: #333;
     font-weight: bold;
     transform: scale(1.1);
-}
-
-
-
-
-
-code {
-            background-color: #f4f4f4;
-            padding: 5px;
-            display: block;
-            border-left: 4px solid #2c6e49;
-            margin-bottom: 10px;
-        }
-pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-left: 4px solid #2c6e49;
-            overflow-x: auto;
-            white-space: pre-wrap; /* Автоматический перенос длинных строк */
-            margin-bottom: 20px;
-        }
-
-
-/* Стили для таблиц */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-/* Стили для списков */
-ul {
-    list-style-type: disc;
-    margin: 10px 0 10px 20px;
-}
-
-ol {
-    list-style-type: decimal;
-    margin: 10px 0 10px 20px;
-}
-
-/* Стили для блоков кода */
-pre {
-    background-color: #f4f4f4;
-    padding: 10px;
-    border-left: 4px solid #2c6e49;
-    overflow-x: auto;
-    white-space: pre-wrap;
-}
-
-/* Стили для цитат */
-blockquote {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-left: 5px solid #2c6e49;
-    margin: 20px 0;
-    font-style: italic;
-}
-
-/* Стили для iframe (видео) */
-iframe {
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
 }
