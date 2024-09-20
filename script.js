@@ -5,8 +5,29 @@ const postsPerPage = 5;
 document.addEventListener('DOMContentLoaded', () => {
     // Восстановление сохраненной темы
     const savedTheme = localStorage.getItem('selectedTheme');
+    const themeOptions = document.querySelectorAll('.theme-option');
+
     if (savedTheme) {
+        // Применяем сохраненную тему
         document.body.className = `${savedTheme}-theme`;
+
+        // Активируем кнопку выбранной темы
+        themeOptions.forEach(option => {
+            const theme = option.getAttribute('data-theme');
+            if (theme === savedTheme) {
+                option.classList.add('active'); // Добавляем класс "active" к сохраненной теме
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    } else {
+        // Если тема не сохранена, применяем тему по умолчанию
+        const defaultTheme = 'grey'; // Укажите тему по умолчанию
+        document.body.className = `${defaultTheme}-theme`;
+        const defaultOption = document.querySelector(`.theme-option[data-theme="${defaultTheme}"]`);
+        if (defaultOption) {
+            defaultOption.classList.add('active');
+        }
     }
 
     // Загрузка постов на текущей странице
@@ -29,12 +50,14 @@ function initThemeSwitcher() {
             // Сохранение выбранной темы в localStorage
             localStorage.setItem('selectedTheme', selectedTheme);
 
+            // Обновляем активное состояние кнопок
             themeOptions.forEach(opt => opt.classList.remove('active'));
             this.classList.add('active');
         });
     });
 }
 
+// Рендеринг пагинации
 function renderPagination(totalPages) {
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = '';
@@ -53,6 +76,7 @@ function renderPagination(totalPages) {
     }
 }
 
+// Загрузка постов
 function loadPosts(page) {
     fetch('posts.json')
         .then(response => {
@@ -80,7 +104,7 @@ function loadPosts(page) {
                 postContainer.appendChild(post);
             }
 
-            // Пересчёт пагинации и активной страницы
+            // Пересчет пагинации и активной страницы
             currentPage = page;
             const totalPages = Math.ceil(posts.length / postsPerPage);
             renderPagination(totalPages);

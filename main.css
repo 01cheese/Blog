@@ -47,10 +47,51 @@ nav {
     transition: border-color 0.3s ease;
 }
 
-
-.theme-option.active {
-    border-color: #fff;
+.theme-option.color-grey{
+    background-color: #2e2e2e;
 }
+
+.theme-option.color-dark-green{
+    background-color: #0d4029;
+}
+
+.theme-option.color-dark-blue{
+    background-color: #162d4e;
+}
+
+.theme-option.color-dark-purple{
+    background-color: #301934;
+}
+
+.theme-option.color-cream{
+    background-color: #2d2d2d;
+}
+
+
+
+
+
+.theme-option.color-grey.active{
+    border-color: #444;
+}
+
+.theme-option.color-dark-green.active{
+    border-color: #195d47;
+}
+
+.theme-option.color-dark-blue.active{
+    border-color: #1d4b6b;
+}
+
+.theme-option.color-dark-purple.active{
+    border-color: #4a2b5d;
+}
+
+.theme-option.color-cream.active{
+    border-color: #433f39;
+}
+
+
 
 
 .header a {
