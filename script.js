@@ -1,17 +1,24 @@
 let currentPage = 1;
 const postsPerPage = 5;
 
-
+// Инициализация темы при загрузке
 document.addEventListener('DOMContentLoaded', () => {
+    // Восстановление сохраненной темы
     const savedTheme = localStorage.getItem('selectedTheme');
     if (savedTheme) {
         document.body.className = `${savedTheme}-theme`;
     }
 
+    // Загрузка постов на текущей странице
+    loadPosts(currentPage);
+
+    // Инициализация переключателя тем
     initThemeSwitcher();
 });
 
+// Логика переключения тем
 function initThemeSwitcher() {
+    const themeSwitcher = document.getElementById('theme-switcher');
     const themeOptions = document.querySelectorAll('.theme-option');
 
     themeOptions.forEach(option => {
@@ -22,13 +29,11 @@ function initThemeSwitcher() {
             // Сохранение выбранной темы в localStorage
             localStorage.setItem('selectedTheme', selectedTheme);
 
-            // Обновление активной темы
             themeOptions.forEach(opt => opt.classList.remove('active'));
             this.classList.add('active');
         });
     });
 }
-
 
 function renderPagination(totalPages) {
     const paginationContainer = document.getElementById('pagination');
@@ -50,7 +55,12 @@ function renderPagination(totalPages) {
 
 function loadPosts(page) {
     fetch('posts.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки постов');
+            }
+            return response.json();
+        })
         .then(data => {
             const posts = data.posts;
             const postContainer = document.getElementById('post-content');
