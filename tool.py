@@ -1,29 +1,64 @@
 from datetime import datetime
+import json
 import html
 
-# Получение текущей даты в нужном формате
-current_date = datetime.now()
-dateNow = current_date.strftime("%B %d, %Y")
 
-# Ввод заголовка поста
-post_title = input("Enter your post title: ")
+def new_post_in_json(content):
+    # Чтение существующего JSON файла
+    with open('posts.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
 
-# Начальный и конечный HTML-код для поста
-startCodeForPost = f"""
-    <div class="container">
-        <div class="post">
-            <h1 class="post-title">{post_title}</h1>
-            <p class="post-meta">Published on {dateNow} | Author: Vadym Zelenko</p>
+    # Создание нового поста
+    new_post = {
+        "id": len(data['posts']) + 1,  # Увеличиваем id для нового поста
+        "content": f"{content}"
+    }
 
-            <div class="post-content">
+    # Добавление нового поста в список постов
+    data['posts'].append(new_post)
 
-    """
-endCodeForPost = """
-        </div>
+    # Сохранение обновленного JSON файла
+    with open('posts.json', 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4)
 
-    </div>
-</div>
-"""
+    print("Новый пост добавлен успешно!")
+
+
+
+def start_menu():
+    while(True):
+        choice = input("Hello! What do you want?\n1. New post\n2. Delete post\n3. Other func\n4. Exit\n>> ")
+        if choice == '1':
+            new_post()
+        elif choice == '2':
+            id_post = int(input("Write id post, that you want delete: "))
+            delete_post(id_post)
+        elif choice == '3':
+            pass
+        elif choice == '0':
+            exit()
+
+def delete_post(post_id):
+    # Чтение существующего JSON файла
+    with open('posts.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    # Фильтруем посты, исключая тот, который нужно удалить
+    data['posts'] = [post for post in data['posts'] if post['id'] != post_id]
+
+    # Пересчитываем id для оставшихся постов
+    for index, post in enumerate(data['posts']):
+        post['id'] = index + 1  # Переназначаем id начиная с 1
+
+    # Сохранение обновленного JSON файла
+    with open('posts.json', 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4)
+
+    print(f"Пост с id {post_id} успешно удален!")
+
+
+
+
 
 # Базовый класс для элементов
 class WebElement:
@@ -95,113 +130,135 @@ class tag_pre(WebElement):
         return f"<pre>{escaped_code}</pre>\n"
 
 
-# Класс для веб-страницы
-class WebPage:
-    def __init__(self):
-        self.elements = []
-
-    def add_element(self, element):
-        self.elements.append(element)
-
-    def render_page(self):
-        html_content = startCodeForPost
-        for element in self.elements:
-            html_content += element.render()
-        html_content += endCodeForPost
-        return html_content
 
 
-# Создание страницы и добавление элементов
-filling = ""
-page = WebPage()
-counter = True
 
-while (counter):
-    choice = input("Enter tag: ")
+def new_post():
+    # Класс для веб-страницы
+    class WebPage:
+        def __init__(self):
+            self.elements = []
 
-    if choice == "p":                                      # tag p
-        filling = input("Enter your <p>: ")
-        p = tag_p(filling)
-        page.add_element(p)
+        def add_element(self, element):
+            self.elements.append(element)
 
-    elif choice.startswith("h"):                            # tag h1...h6
-        level = int(choice[1]) if choice[1].isdigit() else 1
-        filling = input(f"Enter your <h{level}>: ")
-        header = Header(level, filling)
-        page.add_element(header)
+        def render_page(self):
+            html_content = startCodeForPost
+            for element in self.elements:
+                html_content += element.render()
+            html_content += endCodeForPost
+            return html_content
+    # Получение текущей даты в нужном формате
+    current_date = datetime.now()
+    dateNow = current_date.strftime("%B %d, %Y")
 
-    elif choice == "img":                                   # tag img
-        filling = input("Enter image source (src): ")
-        img = tag_img(filling)
-        page.add_element(img)
+    # Ввод заголовка поста
+    post_title = input("Enter your post title: ")
 
-    elif choice == "pre":                                   # tag pre
-        print("Enter your code (type 'END' on a new line to finish):")
-        lines = []
-        while True:
-            line = input()
-            if line.strip().upper() == "END":
-                break
-            lines.append(line)
-        pre = tag_pre("\n".join(lines))
-        page.add_element(pre)
+    # Начальный и конечный HTML-код для поста
+    startCodeForPost = f"""
+    <h1 class="post-title">{post_title}</h1>
+    <p class="post-meta">Published on {dateNow} | Author: Vadym Zelenko</p>
+    <div class="post-content">"""
 
-    elif choice in ["bq", "blockquote", "quote"]:           # tag blockquote
-        filling = input("Enter your <blockquote>: ")
-        blockquote = tag_blockquote(filling)
-        page.add_element(blockquote)
+    endCodeForPost = """</div>"""
 
-    elif choice == "table":                                 # tag table
-        # Get table headers (th)
-        list_th = []
-        num_th = int(input("Enter number of <th>: "))
-        for i in range(num_th):
-            list_th.append("<th>" + input(f"Enter header {i+1}: ") + "</th>")
-        thead = "\n".join(list_th)
 
-        # Get table rows and columns (tr, td)
-        list_tr = []
-        num_tr = int(input("Enter number of <tr>: "))
-        num_td = int(input("Enter number of <td>: "))
-        for i in range(num_tr):
-            list_td = []
-            for j in range(num_td):
-                list_td.append("<td>" + input(f"Enter row {i + 1}, column {j + 1}: ") + "</td>")
-            tr = "\n".join(list_td)
-            list_tr.append("<tr>" + tr + "</tr>")
-        tbody = "\n".join(list_tr)
+    # Создание страницы и добавление элементов
+    filling = ""
+    page = WebPage()
+    counter = True
 
-        table = tag_table(thead, tbody)
-        page.add_element(table)
+    while (counter):
+        choice = input("Enter tag: ")
 
-    elif choice == "ul":                                    # tag ul
-        list_li = []
-        num_li = int(input("Enter number of <li>: "))
-        for i in range(num_li):
-            list_li.append("<li>"+input(f"Enter item {i + 1}: ") + "</li>")
-        ul = tag_ul("\n".join(list_li))
-        page.add_element(ul)
+        if choice == "p":                                      # tag p
+            filling = input("Enter your <p>: ")
+            p = tag_p(filling)
+            page.add_element(p)
 
-    elif choice == "ol":                                    # tag ol
-        list_li = []
-        num_li = int(input("Enter number of <li>: "))
-        for i in range(num_li):
-            list_li.append("<li>"+input(f"Enter item {i + 1}: ") + "</li>")
-        ol = tag_ol("\n".join(list_li))
-        page.add_element(ol)
+        elif choice.startswith("h"):                            # tag h1...h6
+            level = int(choice[1]) if choice[1].isdigit() else 1
+            filling = input(f"Enter your <h{level}>: ")
+            header = Header(level, filling)
+            page.add_element(header)
 
-    elif choice in ["help", "HELP", "Help"]:
-        print("'p' for <p>\n'h1' for <h1>\n'h2' for <h2>\n'ul' for <ul>\n'ol' for <ol>\n'table' for <table>\n'img' for <img>\n'pre' for <pre>, 0 to stop")
-        print("print 'END' in end code for tag <pre>\n")
+        elif choice == "img":                                   # tag img
+            filling = input("Enter image source (src): ")
+            img = tag_img(filling)
+            page.add_element(img)
 
-    elif choice == "0":
-        counter = False
+        elif choice == "pre":                                   # tag pre
+            print("Enter your code (type 'END' on a new line to finish):")
+            lines = []
+            while True:
+                line = input()
+                if line.strip().upper() == "END":
+                    break
+                lines.append(line)
+            pre = tag_pre("\n".join(lines))
+            page.add_element(pre)
 
-# Рендеринг HTML-страницы
-data = page.render_page()
+        elif choice in ["bq", "blockquote", "quote"]:           # tag blockquote
+            filling = input("Enter your <blockquote>: ")
+            blockquote = tag_blockquote(filling)
+            page.add_element(blockquote)
 
-# Запись в файл
-with open("example.html", "w") as file:
-    file.write(data)
+        elif choice == "table":                                 # tag table
+            # Get table headers (th)
+            list_th = []
+            num_th = int(input("Enter number of <th>: "))
+            for i in range(num_th):
+                list_th.append("<th>" + input(f"Enter header {i+1}: ") + "</th>")
+            thead = "\n".join(list_th)
 
-print("HTML file generated successfully!")
+            # Get table rows and columns (tr, td)
+            list_tr = []
+            num_tr = int(input("Enter number of <tr>: "))
+            num_td = int(input("Enter number of <td>: "))
+            for i in range(num_tr):
+                list_td = []
+                for j in range(num_td):
+                    list_td.append("<td>" + input(f"Enter row {i + 1}, column {j + 1}: ") + "</td>")
+                tr = "\n".join(list_td)
+                list_tr.append("<tr>" + tr + "</tr>")
+            tbody = "\n".join(list_tr)
+
+            table = tag_table(thead, tbody)
+            page.add_element(table)
+
+        elif choice == "ul":                                    # tag ul
+            list_li = []
+            num_li = int(input("Enter number of <li>: "))
+            for i in range(num_li):
+                list_li.append("<li>"+input(f"Enter item {i + 1}: ") + "</li>")
+            ul = tag_ul("\n".join(list_li))
+            page.add_element(ul)
+
+        elif choice == "ol":                                    # tag ol
+            list_li = []
+            num_li = int(input("Enter number of <li>: "))
+            for i in range(num_li):
+                list_li.append("<li>"+input(f"Enter item {i + 1}: ") + "</li>")
+            ol = tag_ol("\n".join(list_li))
+            page.add_element(ol)
+
+        elif choice in ["help", "HELP", "Help"]:
+            print("'p' for <p>\n'h1' for <h1>\n'h2' for <h2>\n'ul' for <ul>\n'ol' for <ol>\n'table' for <table>\n'img' for <img>\n'pre' for <pre>, 0 to stop")
+            print("print 'END' in end code for tag <pre>\n")
+
+        elif choice == "0":
+            counter = False
+
+    # Рендеринг HTML-страницы
+    data = page.render_page()
+    new_post_in_json(data)
+    print("JSON file generated successfully!")
+
+
+
+start_menu()
+#
+# # Запись в файл
+# with open("example.html", "w") as file:
+#     file.write(new_post())
