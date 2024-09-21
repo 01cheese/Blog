@@ -102,19 +102,19 @@ function loadPosts(page) {
                 post.classList.add('post');
                 post.innerHTML = `
                     <div class="container">
-                        <div class="post-content">${posts[(end-1)-i].content}</div>
-                        <button class="share-btn" data-id="${posts[(end-1)-i].id}">Copy link</button>
+                        <div class="post-content">${posts[i].content}</div>
+                        <button class="share-btn" data-id="${posts[i].id}">Copy link</button>
                     </div>
                 `;
                 postContainer.appendChild(post);
             }
 
-            // Пересчет пагинации и активной страницы
+            // Обновляем пагинацию
             currentPage = page;
             const totalPages = Math.ceil(posts.length / postsPerPage);
             renderPagination(totalPages);
 
-            // Инициализируем кнопки "Поделиться"
+            // Инициализация кнопок для "Поделиться"
             initShareButtons();
 
             // Прокрутка наверх после загрузки постов
@@ -122,6 +122,7 @@ function loadPosts(page) {
         })
         .catch(error => console.error('Ошибка при загрузке постов:', error));
 }
+
 
 
 function initShareButtons() {
