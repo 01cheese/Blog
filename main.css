@@ -222,7 +222,7 @@ nav {
 }
 
 
-.share-button {
+.share-btn {
     background-color: #1e90ff;
     color: white;
     border: none;
@@ -235,7 +235,7 @@ nav {
     display: inline-block; /* Чтобы кнопка занимала ровно столько места, сколько нужно */
 }
 
-.share-button:hover {
+.share-btn:hover {
     background-color: #4682b4;
 }
 
