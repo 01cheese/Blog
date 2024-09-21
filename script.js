@@ -102,8 +102,8 @@ function loadPosts(page) {
                 post.classList.add('post');
                 post.innerHTML = `
                     <div class="container">
-                        <div class="post-content">${posts[i].content}</div>
-                        <button class="share-btn" data-id="${posts[i].id}">Поделиться</button>
+                        <div class="post-content">${posts[(end-1)-i].content}</div>
+                        <button class="share-btn" data-id="${posts[(end-1)-i].id}">Copy link</button>
                     </div>
                 `;
                 postContainer.appendChild(post);
@@ -134,11 +134,32 @@ function initShareButtons() {
 
             // Копируем ссылку в буфер обмена
             navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('Ссылка скопирована: ' + shareUrl);
+                // Создание временного сообщения
+                const tempMessage = document.createElement('div');
+                tempMessage.textContent = 'Ссылка скопирована!';
+                tempMessage.style.position = 'fixed';
+                tempMessage.style.bottom = '10px';
+                tempMessage.style.right = '10px';
+                tempMessage.style.backgroundColor = '#1e90ff';
+                tempMessage.style.color = 'white';
+                tempMessage.style.padding = '10px';
+                tempMessage.style.borderRadius = '5px';
+                tempMessage.style.opacity = '1';
+                tempMessage.style.transition = 'opacity 2s'; // Плавное исчезновение
+                document.body.appendChild(tempMessage);
+
+                // Через 2 секунды начинаем плавное исчезновение
+                setTimeout(() => {
+                    tempMessage.style.opacity = '0';
+                }, 1000);
+
+                // Через 4 секунды удаляем элемент из DOM
+                setTimeout(() => {
+                    document.body.removeChild(tempMessage);
+                }, 4000);
             }).catch(err => {
                 console.error('Ошибка копирования ссылки:', err);
             });
         });
     });
 }
-
