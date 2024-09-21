@@ -131,7 +131,7 @@ function initShareButtons() {
     shareButtons.forEach(button => {
         button.addEventListener('click', function () {
             const postId = this.getAttribute('data-id');
-            const shareUrl = `http://localhost:63342/easyBlog/share.html?id=${postId}`;
+            const shareUrl = `https://01cheese.github.io/EasyBlogInGitHubPages/share.html?id=${postId}`;
 
             // Копируем ссылку в буфер обмена
             navigator.clipboard.writeText(shareUrl).then(() => {
